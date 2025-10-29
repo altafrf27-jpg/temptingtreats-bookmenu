@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout - Tempting Treats</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream: #f8f5f0;
+      --brown: #5c4033;
+      --gold: #d2a679;
+      --light-brown: #8b6f47;
+      --shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      background: var(--cream);
+      color: var(--brown);
+      padding: 40px 20px;
+    }
+
+    .checkout-container {
+      max-width: 650px;
+      margin: auto;
+      background: #fff;
+      border-radius: 25px;
+      padding: 35px;
+      box-shadow: var(--shadow);
+      animation: fadeIn 0.4s ease;
+    }
+
+    h2 {
+      text-align: center;
+      font-family: "Playfair Display", serif;
+      font-size: 2em;
+      color: var(--brown);
+      margin-bottom: 25px;
+    }
+
+    .input-group {
+      margin-bottom: 18px;
+    }
+
+    label {
+      font-weight: 500;
+      display: block;
+      margin-bottom: 6px;
+      color: var(--light-brown);
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #ccc;
+      border-radius: 12px;
+      font-size: 1em;
+      transition: 0.3s;
+    }
+
+    input:focus, textarea:focus, select:focus {
+      outline: none;
+      border-color: var(--gold);
+      box-shadow: 0 0 5px rgba(210,166,121,0.3);
+    }
+
+    textarea {
+      resize: none;
+      min-height: 70px;
+    }
+
+    .summary {
+      background: #fff9f2;
+      padding: 20px;
+      border-radius: 15px;
+      margin-top: 25px;
+      box-shadow: inset 0 2px 6px rgba(0,0,0,0.05);
+    }
+
+    .summary h3 {
+      font-family: "Playfair Display", serif;
+      color: var(--brown);
+      margin-bottom: 12px;
+    }
+
+    #summary-items {
+      list-style: none;
+      margin-bottom: 10px;
+    }
+
+    #summary-items li {
+      margin: 5px 0;
+      color: #6a4c3a;
+    }
+
+    .total {
+      font-weight: bold;
+      text-align: right;
+      color: var(--gold);
+      margin-top: 8px;
+    }
+
+    button {
+      width: 100%;
+      background: var(--gold);
+      color: white;
+      border: none;
+      padding: 14px;
+      border-radius: 12px;
+      font-size: 1em;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 25px;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    button:hover {
+      background: #b88a5d;
+      transform: translateY(-2px);
+    }
+
+    .back-btn {
+      display: inline-block;
+      margin-top: 15px;
+      text-align: center;
+      color: var(--light-brown);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .back-btn:hover {
+      color: var(--gold);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 600px) {
+      body { padding: 20px; }
+      .checkout-container { padding: 25px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="checkout-container">
+    <h2>Konfirmasi Pesanan 🍰</h2>
+
+    <div class="input-group">
+      <label>Nama Lengkap</label>
+      <input type="text" id="nama" placeholder="Masukkan nama lengkap">
+    </div>
+
+    <div class="input-group">
+      <label>Nomor WhatsApp Aktif</label>
+      <input type="text" id="nomor" placeholder="Contoh: 0812xxxxxxx">
+    </div>
+
+    <div class="input-group">
+      <label>Alamat Lengkap</label>
+      <textarea id="alamat" placeholder="Masukkan alamat lengkap"></textarea>
+    </div>
+
+    <div class="input-group">
+      <label>Catatan (Opsional)</label>
+      <textarea id="catatan" placeholder="Contoh: tanpa topping, kirim jam 3 sore"></textarea>
+    </div>
+
+    <div class="summary">
+      <h3>Ringkasan Pesanan</h3>
+      <ul id="summary-items"></ul>
+      <p class="total">Total: Rp <span id="summary-total">0</span></p>
+    </div>
+
+    <div class="input-group">
+      <label>Metode Pembayaran</label>
+      <select id="metode">
+        <option value="Transfer Bank">Transfer Bank</option>
+        <option value="QRIS">QRIS</option>
+      </select>
+    </div>
+
+    <button onclick="konfirmasiPesanan()">Konfirmasi Pembayaran</button>
+
+    <a href="MENU.html" class="back-btn">← Kembali ke Menu</a>
+  </div>
+  <script>
+  const cart = JSON.parse(localStorage.getItem("checkoutCart") || "[]");
+  const total = localStorage.getItem("checkoutTotal") || 0;
+
+  const summaryList = document.getElementById("summary-items");
+  cart.forEach(item => {
+    const li = document.createElement("li");
+    li.textContent = `${item.name} (${item.qty}x) - Rp ${(item.price * item.qty).toLocaleString("id-ID")}`;
+    summaryList.appendChild(li);
+  });
+  document.getElementById("summary-total").textContent = parseInt(total).toLocaleString("id-ID");
+
+  function konfirmasiPesanan() {
+    const nama = document.getElementById("nama").value.trim();
+    const nomor = document.getElementById("nomor").value.trim();
+    const alamat = document.getElementById("alamat").value.trim();
+    const catatan = document.getElementById("catatan").value.trim();
+    const metode = document.getElementById("metode").value;
+
+    if (!nama || !nomor || !alamat) {
+      alert("Mohon isi semua data wajib terlebih dahulu!");
+      return;
+    }
+
+    // Dapatkan tanggal dan waktu saat ini
+    const now = new Date();
+    const waktu = now.toLocaleString("id-ID", {
+      dateStyle: "long",
+      timeStyle: "short"
+    });
+
+    // Ambil pesanan lama
+    const daftarPesanan = JSON.parse(localStorage.getItem("daftarPesanan") || "[]");
+
+    // Tambahkan pesanan baru
+    daftarPesanan.push({
+      nama,
+      nomor,
+      alamat,
+      catatan,
+      metode,
+      items: cart,
+      total,
+      waktu
+    });
+
+    // Simpan ulang
+    localStorage.setItem("daftarPesanan", JSON.stringify(daftarPesanan));
+
+    // Hapus data checkout sementara
+    localStorage.removeItem("checkoutCart");
+    localStorage.removeItem("checkoutTotal");
+
+    alert(`✅ Pesanan dikonfirmasi!\n\nNama: ${nama}\nWaktu: ${waktu}\nTotal: Rp ${parseInt(total).toLocaleString("id-ID")}`);
+
+    window.location.href = "MENU.html";
+  }
+</script>
+
+
+</body>
+</html>
+

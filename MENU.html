@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tempting Treats</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="menu.css" />
+  <script src="menu.js" defer></script>
+</head>
+
+<body>
+  <!-- 🌸 Navbar -->
+  <header class="navbar">
+    <div class="logo">
+      <img src="LOGO.jpg" alt="Tempting Treats Logo" class="logo-img" />
+      <span>Tempting Treats</span>
+    </div>
+
+    <nav class="nav-links">
+      <a href="#home" class="active">Home</a>
+      <a href="#menu">Menu</a>
+      <a href="#about">About</a>
+    </nav>
+
+    <div id="cart-icon" onclick="toggleCart()">
+      🛒 <span id="cart-count">0</span>
+    </div>
+  </header>
+
+  <!-- 🏠 Home -->
+  <section id="home" class="home-section">
+    <div class="hero-text">
+      <h1>Tempting Treats</h1>
+      <p>Indulge in sweetness, crafted with love.</p>
+    </div>
+    <img src="/Users/macbookair/Downloads/folder tanpa judul 2/Salinan dari NEW MENU TEMPTING (1080 × 1920 px).png.jpg" alt="Tempting Treats Café" class="home-img" />
+  </section>
+
+  <!-- 🍮 Menu -->
+  <main id="menu">
+    <h2>Our Signature Menu</h2>
+    <section class="menu-section">
+
+      <div class="menu-item">
+        <img src="/Users/macbookair/Downloads/folder tanpa judul 2/Dimsum Mentai.jpg" alt="Dimsum Mentai" class="menu-img" />
+        <h3>Dimsum Mentai</h3>
+        <p class="price">Rp 40.000</p>
+        <div class="qty-control">
+          <button onclick="changeQty('Dimsum Mentai', 40000, -1)">−</button>
+          <span id="qty-Dimsum-Mentai">0</span>
+          <button onclick="changeQty('Dimsum Mentai', 40000, 1)">+</button>
+        </div>
+      </div>
+
+      <div class="menu-item">
+        <img src="/Users/macbookair/Downloads/folder tanpa judul 2/DIMSUM KUKUS.jpg" alt="Dimsum Kukus" class="menu-img" />
+        <h3>Dimsum Kukus</h3>
+        <p class="price">Rp 35.000</p>
+        <div class="qty-control">
+          <button onclick="changeQty('Dimsum Kukus', 35000, -1)">−</button>
+          <span id="qty-Dimsum-Kukus">0</span>
+          <button onclick="changeQty('Dimsum Kukus', 35000, 1)">+</button>
+        </div>
+      </div>
+
+      <div class="menu-item">
+        <img src="/Users/macbookair/Downloads/folder tanpa judul 2/Choco Regal Pudding.jpg" alt="Choco Regal Pudding" class="menu-img" />
+        <h3>Choco Regal Pudding</h3>
+        <p class="price">Rp 25.000</p>
+        <div class="qty-control">
+          <button onclick="changeQty('Choco Regal Pudding', 25000, -1)">−</button>
+          <span id="qty-Choco-Regal-Pudding">0</span>
+          <button onclick="changeQty('Choco Regal Pudding', 25000, 1)">+</button>
+        </div>
+      </div>
+
+      <div class="menu-item">
+        <img src="/Users/macbookair/Downloads/folder tanpa judul 2/CHEESE CAKE.jpg" alt="Cheese Cake" class="menu-img" />
+        <h3>Cheese Cake</h3>
+        <p class="price">Rp 45.000</p>
+        <div class="qty-control">
+          <button onclick="changeQty('Cheese Cake', 45000, -1)">−</button>
+          <span id="qty-Cheese-Cake">0</span>
+          <button onclick="changeQty('Cheese Cake', 45000, 1)">+</button>
+        </div>
+      </div>
+
+      <div class="menu-item">
+        <img src="/Users/macbookair/Downloads/folder tanpa judul 2/DADAR FLA.jpg" alt="Dadar Fla" class="menu-img" />
+        <h3>Dadar Fla</h3>
+        <p class="price">Rp 25.000</p>
+        <div class="qty-control">
+          <button onclick="changeQty('Dadar Fla', 25000, -1)">−</button>
+          <span id="qty-Dadar-Fla">0</span>
+          <button onclick="changeQty('Dadar Fla', 25000, 1)">+</button>
+        </div>
+      </div>
+
+      <div class="menu-item">
+        <img src="/Users/macbookair/Downloads/folder tanpa judul 2/BUKO PANDAN.jpg" alt="Buko Pandan" class="menu-img" />
+        <h3>Buko Pandan</h3>
+        <p class="price">Rp 35.000</p>
+        <div class="qty-control">
+          <button onclick="changeQty('Buko Pandan', 35000, -1)">−</button>
+          <span id="qty-Buko-Pandan">0</span>
+          <button onclick="changeQty('Buko Pandan', 35000, 1)">+</button>
+        </div>
+      </div>
+
+    </section>
+
+    <aside class="cart" id="cart">
+      <h2>Keranjang</h2>
+      <ul id="cart-items"></ul>
+      <p>Total: Rp <span id="total-price">0</span></p>
+      <button class="checkout-btn" onclick="goToCheckout()">Checkout</button>
+    </aside>
+  </main>
+ <!-- 💖 About Me -->
+  <section id="about" class="about-section">
+    <div class="about-card">
+      <div class="about-left">
+        <img src="/Users/macbookair/Downloads/folder tanpa judul 2/foto.jpg" alt="About Image" />
+      </div>
+      <div class="about-right">
+        <h2>About Me</h2>
+        <p>
+          Halo! 👋 Perkenalkan nama saya <strong>[Andi Muh Altaaf Haidil (XI.J)]</strong>, Untuk pecinta kuliner manis yang percaya bahwa makanan bukan hanya soal rasa — tapi juga kebahagiaan.  
+          <br><br>
+          Website <strong>Tempting Treats</strong> ini saya buat sebagai cara untuk berbagi cinta saya terhadap dessert dan menciptakan pengalaman pemesanan yang hangat, elegan, dan mudah diakses oleh siapa pun.  
+          <br><br>
+          Setiap menu di sini terinspirasi dari momen kecil yang manis dalam hidup, dan saya ingin setiap pelanggan merasakan hal yang sama. 🍮
+        </p>
+      </div>
+    </div>
+  </section>
+</body>
+</html>
